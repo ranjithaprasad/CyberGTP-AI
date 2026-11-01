@@ -1,1 +1,141 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1120;
+    color: white;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: #111827;
+    padding: 25px;
+}
+
+.sidebar h2 {
+    color: #38bdf8;
+    margin-bottom: 30px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 12px;
+    background: #1e293b;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sidebar p {
+    margin-top: 20px;
+    color: #94a3b8;
+}
+
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #334155;
+}
+
+header span {
+    color: #22c55e;
+}
+
+.messages {
+    flex: 1;
+    padding: 30px 10px;
+    text-align: center;
+}
+
+.welcome {
+    margin-top: 100px;
+}
+
+.welcome h1 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+.welcome p {
+    color: #94a3b8;
+    margin: 10px;
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    max-width: 850px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.input-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #1e293b;
+    color: white;
+    outline: none;
+}
+
+.input-area button {
+    padding: 15px 22px;
+    background: #0284c7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    padding: 15px;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 110px;
+        padding: 12px;
+    }
+
+    .sidebar h2 {
+        font-size: 14px;
+    }
+
+    .sidebar p {
+        font-size: 11px;
+    }
+
+    .chat-area {
+        padding: 10px;
+    }
+
+    .welcome {
+        margin-top: 60px;
+    }
+}
+
