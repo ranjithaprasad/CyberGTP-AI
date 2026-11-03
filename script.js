@@ -4,27 +4,21 @@ const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
 const newChatButton = document.getElementById("new-chat");
 
-// Display messages
+let conversation = [];
+
 function addMessage(text, sender) {
     const message = document.createElement("div");
-
     message.style.padding = "15px";
     message.style.margin = "12px auto";
     message.style.maxWidth = "800px";
     message.style.borderRadius = "10px";
     message.style.textAlign = "left";
     message.style.whiteSpace = "pre-wrap";
-
-    if (sender === "user") {
-        message.style.background = "#1e3a5f";
-    } else {
-        message.style.background = "#1e293b";
-    }
+    message.style.background =
+        sender === "user" ? "#1e3a5f" : "#1e293b";
 
     const label = document.createElement("strong");
-    label.textContent = sender === "user"
-        ? "You"
-        : "CyberGTP AI";
+    label.textContent = sender === "user" ? "You" : "CyberGTP AI";
 
     const content = document.createElement("p");
     content.textContent = text;
@@ -33,43 +27,64 @@ function addMessage(text, sender) {
     message.appendChild(label);
     message.appendChild(content);
     messages.appendChild(message);
+
+    messages.scrollTop = messages.scrollHeight;
+    return content;
 }
 
-// Send message
-function sendMessage() {
+async function sendMessage() {
     const text = userInput.value.trim();
-
-    if (text === "") {
-        return;
-    }
+    if (!text || sendButton.disabled) return;
 
     const welcome = messages.querySelector(".welcome");
-    if (welcome) {
-        welcome.remove();
-    }
+    if (welcome) welcome.remove();
 
     addMessage(text, "user");
+    conversation.push({ role: "user", content: text });
 
     userInput.value = "";
+    sendButton.disabled = true;
 
-    addMessage(
-        "Hello! I'm CyberGTP AI. AI integration is coming soon. I will help you with cybersecurity questions!",
-        "ai"
-    );
+    const replyElement = addMessage("Thinking...", "ai");
+
+    try {
+        const response = await fetch("/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ messages: conversation })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "AI request failed.");
+        }
+
+        replyElement.textContent = data.reply;
+        conversation.push({
+            role: "assistant",
+            content: data.reply
+        });
+
+    } catch (error) {
+        replyElement.textContent = "Error: " + error.message;
+        conversation.pop();
+    } finally {
+        sendButton.disabled = false;
+        userInput.focus();
+    }
 }
 
-// Button click
 sendButton.addEventListener("click", sendMessage);
 
-// Enter key
 userInput.addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
+    if (event.key === "Enter") sendMessage();
 });
 
-// New chat
 newChatButton.addEventListener("click", function() {
+    conversation = [];
     messages.innerHTML = `
         <div class="welcome">
             <h1>Welcome to CyberGTP AI</h1>
