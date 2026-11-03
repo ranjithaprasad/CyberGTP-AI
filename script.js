@@ -87,7 +87,7 @@ newChatButton.addEventListener("click", function() {
     conversation = [];
     messages.innerHTML = `
         <div class="welcome">
-            <h1>Welcome to CyberGTP AI</h1>
+            <h1>Welcome to CyberGPT AI</h1>
             <p>Your intelligent cybersecurity assistant.</p>
             <p>Ask me about cybersecurity, ethical hacking,
             networking and SOC analysis.</p>
