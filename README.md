@@ -1,2 +1,2 @@
-# CyberGTP-AI
+# CyberGPT-AI
 Open-source ChatGPT-like AI for Cybersecurity
