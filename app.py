@@ -1,10 +1,13 @@
+import os
+import requests
+from flask import Flask, request, 
+jsonify, render_template
+
+app=Flask(__name__)
+CORS(app)
 @app.route("/")
 def home():
-    return jsonify({
-        "name": "CyberGTP AI",
-        "status": "Running",
-        "message": "Welcome to your AI assistant!"
-    })
-
+    return
+render_template("index.html")
        
       
