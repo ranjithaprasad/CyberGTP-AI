@@ -1,7 +1,9 @@
 import os
 import requests
-from flask import Flask, request, 
-jsonify, render_template
+from dotenv import load_dotenv
+load_dotenv()
+from flask import Flask, render_template request, 
+jsonify, 
 app=Flask(__name__)
 CORS(app)
 @app.route("/")
